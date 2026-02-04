@@ -1,0 +1,26 @@
+#card-container {
+    background-color: rgb(184, 185, 184);
+    width: auto;
+    height: 100vh;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    gap: 30px;
+}
+
+.book-card {
+    background-color: rgb(68, 68, 172);
+    border: 1px solid black;
+    color: antiquewhite;
+    padding: 15px;
+}
+
+.book-title {
+    font-size: h2;
+    font-weight: bold;
+}
+
+.book-info {
+    font-size: 1em;
+}
