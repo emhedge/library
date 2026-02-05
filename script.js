@@ -1,5 +1,6 @@
 let cardContainer = document.querySelector("#card-container")
-let bookTitles = document.querySelectorAll(".book-title");
+let bookCard = document.querySelectorAll(".book-card");
+let bookTitle = document.querySelectorAll(".book-title");
 let bookAuthor = document.querySelectorAll(".author");
 let bookPages = document.querySelectorAll(".pages");
 let bookRead = document.querySelectorAll(".read");
@@ -24,15 +25,22 @@ function Book(title, author, pages, read) {
     this.read = read;
     this.id = crypto.randomUUID();
     this.info = function() {
-        return `${title} by ${author}, ${pages}, ${read}`    
+        return `${title} by ${author}, ${pages}, ${read}`;    
     }
-    addBookToLibrary(this.title, this.author, this.pages, this.read, this.id);
+    addBookToLibrary(this);
+    console.log(this)
 }
 
 // need to set a prototype to be gotten in addBookToLibrary?
 // do i need variables for each book in the library?
 
-
+// set initial text content
+for (let i = 0; i < myLibrary.length; i++) {
+    bookTitle[i].textContent = myLibrary[i].title;
+    bookAuthor[i].textContent = myLibrary[i].author;
+    bookPages[i].textContent = myLibrary[i].pages;
+    bookRead[i].textContent = myLibrary[i].read;
+}
 
 function addBookToLibrary(object) {
     
@@ -40,39 +48,55 @@ function addBookToLibrary(object) {
     
 
         // check if new book is added
-    if (bookTitles.length != myLibrary.length) {
+    if (bookCard.length != myLibrary.length) {
         // add card div with title, author, pages, read divs
-            const newCard = document.createElement("div");
-            const newTitle = document.createElement("div");
-            const newInfo = document.createElement("div");
-            const newAuthor = document.createElement("p");
-            const newPages = document.createElement("p");
-            const newRead = document.createElement("p");
+        const newCard = document.createElement("div");
+        const newTitle = document.createElement("div");
+        const newInfo = document.createElement("div");
+        const newAuthor = document.createElement("p");
+        const newPages = document.createElement("p");
+        const newRead = document.createElement("p");
 
-            cardContainer.appendChild(newCard);
-            newCard.appendChild(newTitle);
-            newCard.appendChild(newInfo);
-            newInfo.appendChild(newAuthor);
-            newInfo.appendChild(newPages);
-            newInfo.appendChild(newRead);
-            
-            newCard.setAttribute("class", "book-card");
-            newInfo.setAttribute("class", "book-info");
-            newTitle.setAttribute("class", "book-title");
-            newAuthor.setAttribute("class", "book-author");
-            newPages.setAttribute("class", "book-pages");
-            newRead.setAttribute("class", "book-read");
+        // set class
+        newCard.setAttribute("class", "book-card");
+        newInfo.setAttribute("class", "book-info");
+        newTitle.setAttribute("class", "book-title");
+        newAuthor.setAttribute("class", "book-author");
+        newPages.setAttribute("class", "book-pages");
+        newRead.setAttribute("class", "book-read");
 
+        // set text content
+        newTitle.textContent = object.title;
+        newAuthor.textContent = object.author;
+        newPages.textContent = object.pages;
+        newRead.textContent = object.read;
+        console.log(object.title)
 
+        // append
+        cardContainer.appendChild(newCard);
+        newCard.appendChild(newTitle);
+        newCard.appendChild(newInfo);
+        newInfo.appendChild(newAuthor);
+        newInfo.appendChild(newPages);
+        newInfo.appendChild(newRead);
     }
+    console.log(object.pages)
+
 }
+//     for (let i = 0; i < myLibrary.length; i++) {
+//         object[1].textContent = myLibrary[i].title;
+//         bookAuthor[i].textContent = myLibrary[i].author;
+//         bookPages[i].textContent = myLibrary[i].pages;
+//         bookRead[i].textContent = myLibrary[i].read;
+//     }
+// }
 
 
 
 
 
 
-// for (const title of bookTitles) {
+// for (const title of bookTitle) {
 //     // variable to grab book title
 //     for (let i = 0; i < myLibrary.length; i++) {
 //         title.textContent = myLibrary[i][1];
@@ -82,14 +106,14 @@ function addBookToLibrary(object) {
 
 
 
-for (let i = 0; i < myLibrary.length; i++) {
-    bookTitles[i].textContent = myLibrary[i].title;
-    bookAuthor[i].textContent = myLibrary[i].author;
-    bookPages[i].textContent = myLibrary[i].pages;
-    bookRead[i].textContent = myLibrary[i].read;
-}
+// for (let i = 0; i < myLibrary.length; i++) {
+//     bookTitle[i].textContent = myLibrary[i].title;
+//     bookAuthor[i].textContent = myLibrary[i].author;
+//     bookPages[i].textContent = myLibrary[i].pages;
+//     bookRead[i].textContent = myLibrary[i].read;
+// }
 console.log(myLibrary.length);
-console.log(bookTitles.length);
+console.log(bookTitle.length);
 
 
 // logic for how to get the book info
