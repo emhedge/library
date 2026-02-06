@@ -1,27 +1,104 @@
+:root {
+    /* light mode */
+    --alice-blue: #ECF9FF;
+    --sunlit-cream: #FFFBEB;
+    --pale-orange: #FFE7CC;
+    --light-apricot: #F8CBA6;
+
+    /* dark mode */
+    --creeping-jesus: #37353E;
+    --smoky-grey: #44444E;
+    --muted-brown: #715A5A;
+    --dusty-grey: #D3DAD9;
+}
+
+body,
 #card-container {
-    background-color: rgb(184, 185, 184);
+    display: grid;
+    color: black;
+}
+
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+dialog {
+  border: none;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* This styles the dimmed background */
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.text-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input[type="radio"] {
+    /* appearance: none; */
+}
+
+#openModal,
+.book-card {
+    background-color: var(--sunlit-cream);
+    border: 2px solid var(--pale-orange);
+    border-radius: 20px;
+}
+
+#openModal {
+    text-align: center;
+    vertical-align: center;
+    font-size: 0.9em;
+    font-weight: bold;
+    line-height: 3em;
+    width: 150px;
+}
+
+body {
+    grid-template-rows: 1fr 15fr;
+}
+
+#card-container {
+    background-color: var(--alice-blue);
     width: auto;
     height: 100vh;
-
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(200px, 400px));
     padding: 50px;
     gap: 30px;
 }
 
+.book-card,
+.book-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    
+}
+
 .book-card {
-    background-color: rgb(68, 68, 172);
-    border: 1px solid black;
-    color: antiquewhite;
     padding: 15px;
-    max-height: 200px;
+
+
 }
 
 .book-title {
     font-size: h2;
     font-weight: bold;
+        
+
 }
 
 .book-info {
     font-size: 1em;
+
 }

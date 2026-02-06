@@ -1,21 +1,52 @@
-let cardContainer = document.querySelector("#card-container")
-let bookCard = document.querySelectorAll(".book-card");
-let bookTitle = document.querySelectorAll(".book-title");
-let bookAuthor = document.querySelectorAll(".author");
-let bookPages = document.querySelectorAll(".pages");
-let bookRead = document.querySelectorAll(".read");
-
 const myLibrary = [
     {title: "Slaughterhouse Five", author: "Kurt Vonnegut, Jr.", pages: "190 pages", read:"read", id: "1"},
     {title: "Leviathan Wakes", author: "James S.A. Corey", pages: "561 pages", read:"read", id: "2"},
     {title: "Project Hail Mary", author: "Andy Weir", pages: "496 pages", read:"not read yet", id: "3"},
 ];
 
-// new Book("Slaughterhouse Five", "Kurt Vonnegut, Jr.", "190 pages", "read");
-// new Book("Leviathan Wakes", "James S.A. Corey", "561 pages", "read");
-// new Book("Project Hail Mary", "Andy Weir", "496 pages", "not read yet")
+const cardContainer = document.querySelector("#card-container")
+let bookCard = document.querySelectorAll(".book-card");
+let bookTitle = document.querySelectorAll(".book-title");
+let bookAuthor = document.querySelectorAll(".author");
+let bookPages = document.querySelectorAll(".pages");
+let bookRead = document.querySelectorAll(".read");
+const newBookBtn = document.querySelector("#add-new-btn")
+const dialog = document.querySelector('#bookDialog');
+const openBtn = document.querySelector('#openModal');
+const closeBtn = document.querySelector('#closeModal');
 
-function Book(title, author, pages, read) {
+// set initial text content
+for (let i = 0; i < myLibrary.length; i++) {
+    bookTitle[i].textContent = myLibrary[i].title;
+    bookAuthor[i].textContent = myLibrary[i].author;
+    bookPages[i].textContent = myLibrary[i].pages;
+    bookRead[i].textContent = myLibrary[i].read;
+}
+
+// Show the pop-up
+openBtn.addEventListener('click', () => {
+  dialog.showModal(); 
+});
+
+// Close the pop-up
+closeBtn.addEventListener('click', () => {
+  dialog.close();
+});
+
+// get form data, call addBookToLibrary()
+const bookDialog = document.querySelector("#bookDialog");
+
+bookDialog.addEventListener("submit", e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const allValues = Object.fromEntries(formData.entries());
+    new Book(allValues);
+    console.log(allValues)
+    dialog.close();
+})
+
+// new Book constructor
+function Book({title, author, pages, read}) {
     if (!new.target) {
         throw Error("You must use the 'new' operator to call the constructor")
     }
@@ -30,18 +61,7 @@ function Book(title, author, pages, read) {
     addBookToLibrary(this);
     console.log(this)
 }
-
-// need to set a prototype to be gotten in addBookToLibrary?
-// do i need variables for each book in the library?
-
-// set initial text content
-for (let i = 0; i < myLibrary.length; i++) {
-    bookTitle[i].textContent = myLibrary[i].title;
-    bookAuthor[i].textContent = myLibrary[i].author;
-    bookPages[i].textContent = myLibrary[i].pages;
-    bookRead[i].textContent = myLibrary[i].read;
-}
-
+// add book to library and create new .book-card for it
 function addBookToLibrary(object) {
     
     myLibrary.push(object);
@@ -83,41 +103,7 @@ function addBookToLibrary(object) {
     console.log(object.pages)
 
 }
-//     for (let i = 0; i < myLibrary.length; i++) {
-//         object[1].textContent = myLibrary[i].title;
-//         bookAuthor[i].textContent = myLibrary[i].author;
-//         bookPages[i].textContent = myLibrary[i].pages;
-//         bookRead[i].textContent = myLibrary[i].read;
-//     }
-// }
 
-
-
-
-
-
-// for (const title of bookTitle) {
-//     // variable to grab book title
-//     for (let i = 0; i < myLibrary.length; i++) {
-//         title.textContent = myLibrary[i][1];
-//         console.log(title);
-//     }    
-// }
-
-
-
-// for (let i = 0; i < myLibrary.length; i++) {
-//     bookTitle[i].textContent = myLibrary[i].title;
-//     bookAuthor[i].textContent = myLibrary[i].author;
-//     bookPages[i].textContent = myLibrary[i].pages;
-//     bookRead[i].textContent = myLibrary[i].read;
-// }
-console.log(myLibrary.length);
-console.log(bookTitle.length);
-
-
-// logic for how to get the book info
-    // const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`)
-// bookInfo[i].textContent = myLibrary[i].pages;
-//     bookInfo[i].textContent = myLibrary[i].read;
-//     bookInfo[i].textContent = myLibrary[i].id;
+function removeFromLibrary(object) {
+    myLibrary.slice(object);
+}
