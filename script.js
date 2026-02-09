@@ -166,3 +166,4 @@ function addBookCard(object) {
         newCard.appendChild(newBtnDiv);
         newBtnDiv.appendChild(newBookRemovalBtn);
         newBtnDiv.appendChild(newReadBtn);
+}
