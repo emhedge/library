@@ -72,7 +72,6 @@ closeBtn.addEventListener('click', () => {
 
 
 // event handlers for toggling read and removing from library
-const readBtn = document.querySelector(".toggle-read-btn");
 const notRead = "not read yet";
 const read = "read";
 
