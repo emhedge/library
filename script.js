@@ -1,9 +1,9 @@
 const cardContainer = document.querySelector("#card-container")
 const bookCard = document.querySelectorAll(".book-card");
 const bookTitle = document.querySelectorAll(".book-title");
-const bookAuthor = document.querySelectorAll(".author");
-const bookPages = document.querySelectorAll(".pages");
-const bookRead = document.querySelectorAll(".read");
+const bookAuthor = document.querySelectorAll(".author-specifics");
+const bookPages = document.querySelectorAll(".pages-specifics");
+const bookRead = document.querySelectorAll(".read-specifics");
 const newBookBtn = document.querySelector("#add-new-btn")
 const dialog = document.querySelector('#bookDialog');
 const openBtn = document.querySelector('#openModal');
@@ -126,6 +126,7 @@ function addBookCard(object) {
         const newCard = document.createElement("div");
         const newTitle = document.createElement("div");
         const newInfo = document.createElement("div");
+        const newBookSpecifics = document.createElement("div");
         const newAuthor = document.createElement("p");
         const newPages = document.createElement("p");
         const newRead = document.createElement("p");
@@ -137,10 +138,11 @@ function addBookCard(object) {
         newCard.setAttribute("class", "book-card");
         newCard.dataset.id = object.id;
         newInfo.setAttribute("class", "book-info");
+        newBookSpecifics.setAttribute("id", "book-specifics")
         newTitle.setAttribute("class", "book-title");
-        newAuthor.setAttribute("class", "author");
-        newPages.setAttribute("class", "pages");
-        newRead.setAttribute("class", "read");
+        newAuthor.setAttribute("class", "author-specifics");
+        newPages.setAttribute("class", "pages-specifics");
+        newRead.setAttribute("class", "read-specifics");
         newBtnDiv.setAttribute("class", "book-card-btn-div");
         newBookRemovalBtn.setAttribute("class", "book-removal-btn")
         newBookRemovalBtn.setAttribute("type", "button")
@@ -159,9 +161,11 @@ function addBookCard(object) {
         cardContainer.appendChild(newCard);
         newCard.appendChild(newTitle);
         newCard.appendChild(newInfo);
-        newInfo.appendChild(newAuthor);
-        newInfo.appendChild(newPages);
-        newInfo.appendChild(newRead);
+        newInfo.appendChild(newBookSpecifics);
+        newBookSpecifics.appendChild(newAuthor);
+        newBookSpecifics.appendChild(newPages);
+        newBookSpecifics.appendChild(newRead);
+        
         newCard.appendChild(newBtnDiv);
         newBtnDiv.appendChild(newBookRemovalBtn);
         newBtnDiv.appendChild(newReadBtn);
