@@ -8,7 +8,7 @@ const newBookBtn = document.querySelector("#add-new-btn")
 const dialog = document.querySelector('#bookDialog');
 const openBtn = document.querySelector('#openModal');
 const closeBtn = document.querySelector('#closeModal');
-const bookRemovalBtn = document.querySelectorAll(".book-card-btn");
+const bookRemovalBtn = document.querySelectorAll(".book-removal-btn");
 
 // new Book constructor
 function Book({title, author, pages, read}) {
@@ -33,6 +33,7 @@ Book.prototype.toggleRead = function() {
 
 myLibrary = [];
 
+// start with three books
 const initialBooks = [
     new Book({title: "Slaughterhouse Five", author: "Kurt Vonnegut, Jr.", pages: "190 pages", read:"read", id: ""}),
     new Book({title: "Leviathan Wakes", author: "James S.A. Corey", pages: "561 pages", read:"read", id: ""}),
@@ -69,10 +70,38 @@ closeBtn.addEventListener('click', () => {
     dialog.close();
 });
 
-// Remove book card
-bookRemovalBtn.forEach(button => {
-    button.addEventListener('click', removeFromLibrary)
-    button.addEventListener('click', removeBookCard)
+
+// event handlers for toggling read and removing from library
+const readBtn = document.querySelector(".toggle-read-btn");
+const notRead = "not read yet";
+const read = "read";
+
+cardContainer.addEventListener("click", e => {
+    e.preventDefault();
+    if (e.target.classList.contains("toggle-read-btn")) {
+        const button = e.target;
+        const thisCard = button.closest(".book-card")
+        const currentStatus = thisCard.querySelector(".read");
+        const bookId = thisCard.dataset.id;
+
+        const foundBook = myLibrary.find(book => book.id == bookId)
+        
+        if (currentStatus.textContent == read) {
+            currentStatus.textContent = notRead;
+        } else {
+            currentStatus.textContent = read;
+        }
+        foundBook.toggleRead();
+    }
+
+    if (e.target.classList.contains("book-removal-btn")) {
+        const button = e.target;
+        const thisCard = button.closest(".book-card")
+        const bookId = thisCard.dataset.id;
+        const foundBook = myLibrary.find(book => book.id == bookId);
+        myLibrary.splice(foundBook, 1);
+        thisCard.remove();
+    }
 })
 
 
@@ -93,38 +122,7 @@ bookDialog.addEventListener("submit", e => {
     e.target.reset();
 })
 
-// toggle read status
-const readButton = document.querySelector(".toggle-read-btn");
-const notRead = "not read yet";
-const read = "read";
-
-cardContainer.addEventListener("click", e => {
-    
-    
-    e.preventDefault();
-    if (e.target.classList.contains("toggle-read-btn")) {
-        const button = e.target;
-        const thisCard = button.closest(".book-card")
-        // const currentStatus = thisCard.querySelector(".read");
-        const bookId = thisCard.dataset.id;
-
-        const foundBook = myLibrary.find(book => book.id == bookId)
-
-        console.log(foundBook);
-        
-        // if (currentStatus.textContent == read) {
-        //     currentStatus.textContent = notRead;
-        // } else {
-        //     currentStatus.textContent = read;
-        // }
-        foundBook.toggleRead();
-    }
-    
-})
-
 function addBookCard(object) {
-        // check if new book is added
-
         // add card div with title, author, pages, read divs
         const newCard = document.createElement("div");
         const newTitle = document.createElement("div");
@@ -132,18 +130,25 @@ function addBookCard(object) {
         const newAuthor = document.createElement("p");
         const newPages = document.createElement("p");
         const newRead = document.createElement("p");
+        const newBtnDiv = document.createElement("div");
         const newBookRemovalBtn = document.createElement("button");
+        const newReadBtn = document.createElement("button");
+
         // set class
         newCard.setAttribute("class", "book-card");
         newCard.dataset.id = object.id;
         newInfo.setAttribute("class", "book-info");
         newTitle.setAttribute("class", "book-title");
-        newAuthor.setAttribute("class", "book-author");
-        newPages.setAttribute("class", "book-pages");
-        newRead.setAttribute("class", "book-read");
-
-        newBookRemovalBtn.setAttribute("class", "book-card-btn")
+        newAuthor.setAttribute("class", "author");
+        newPages.setAttribute("class", "pages");
+        newRead.setAttribute("class", "read");
+        newBtnDiv.setAttribute("class", "book-card-btn-div");
+        newBookRemovalBtn.setAttribute("class", "book-removal-btn")
+        newBookRemovalBtn.setAttribute("type", "button")
         newBookRemovalBtn.textContent = "Remove from library";
+        newReadBtn.setAttribute("class", "toggle-read-btn");
+        newReadBtn.setAttribute("type", "button")
+        newReadBtn.textContent = "Toggle read";
 
         // set text content
         newTitle.textContent = object.title;
@@ -158,30 +163,6 @@ function addBookCard(object) {
         newInfo.appendChild(newAuthor);
         newInfo.appendChild(newPages);
         newInfo.appendChild(newRead);
-        newCard.appendChild(newBookRemovalBtn);
-    // console.log(object.pages)
-}
-
-function removeBookCard(event) {
-    const button = event.target;
-    const bookCardDiv = button.closest(".book-card");
-    if (bookCardDiv) {
-        const bookId = bookCardDiv.getAttribute("data-id");
-        console.log("Removing item with ID:", bookId);
-    }
-    bookCardDiv.remove()
-}
-
-
-function removeFromLibrary(event) {
-    const button = event.target;
-    const bookCardDiv = button.closest(".book-card");
-    const bookId = bookCardDiv.getAttribute("data-id");
-
-    // findIndex to identify location with same id
-    const bookIndex = myLibrary.findIndex(book => book.id == bookId);
-    // splice to remove that object in that location
-    myLibrary.splice(bookIndex, 1);
-    console.table(myLibrary)
-}
-
+        newCard.appendChild(newBtnDiv);
+        newBtnDiv.appendChild(newBookRemovalBtn);
+        newBtnDiv.appendChild(newReadBtn);
