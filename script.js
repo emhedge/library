@@ -35,9 +35,9 @@ myLibrary = [];
 
 // start with three books
 const initialBooks = [
-    new Book({title: "Slaughterhouse Five", author: "Kurt Vonnegut, Jr.", pages: "190 pages", read:"read", id: ""}),
-    new Book({title: "Leviathan Wakes", author: "James S.A. Corey", pages: "561 pages", read:"read", id: ""}),
-    new Book({title: "Project Hail Mary", author: "Andy Weir", pages: "496 pages", read:"not read yet", id: ""}),
+    new Book({title: "Slaughterhouse Five", author: "Kurt Vonnegut, Jr.", pages: "190 pages", read:"Read"}),
+    new Book({title: "Leviathan Wakes", author: "James S.A. Corey", pages: "561 pages", read:"Read"}),
+    new Book({title: "Project Hail Mary", author: "Andy Weir", pages: "496 pages", read:"Read"}),
 ];
 
 initialBooks.forEach(book => myLibrary.push(book));
@@ -72,15 +72,15 @@ closeBtn.addEventListener('click', () => {
 
 
 // event handlers for toggling read and removing from library
-const notRead = "not read yet";
-const read = "read";
+const notRead = "Not read yet";
+const read = "Read";
 
 cardContainer.addEventListener("click", e => {
     e.preventDefault();
     if (e.target.classList.contains("toggle-read-btn")) {
         const button = e.target;
         const thisCard = button.closest(".book-card")
-        const currentStatus = thisCard.querySelector(".read");
+        const currentStatus = thisCard.querySelector(".read-specifics");
         const bookId = thisCard.dataset.id;
 
         const foundBook = myLibrary.find(book => book.id == bookId)
