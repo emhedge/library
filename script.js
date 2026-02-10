@@ -40,7 +40,6 @@ initialBooks.forEach(book => {
 // add books to library and create new .book-card for it
 function addBookToLibrary(book) {
     myLibrary.push(book);
-    console.table(myLibrary);
 }
 
 // event listeners

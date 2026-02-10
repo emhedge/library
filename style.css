@@ -1,42 +1,48 @@
 :root {
 /** Base colors */
---clr-dark-a0: #000000;
---clr-light-a0: #ffffff;
+--text-light: #000000;
+--text-dark: #ffffff;
 
-/** Theme primary colors */
---clr-primary-a0: #378d6b;
---clr-primary-a10: #327c5f;
---clr-primary-a20: #2e6c53;
---clr-primary-a30: #295c47;
---clr-primary-a40: #244d3c;
+/* default: light theme */
+--icon-fill: #378d6b;
+--hover-light: #295c47;
+--card-container-light: #d8e8e0;
+--div-light: #cedcd5;
+--button-light: #bac4bf;
+/* dark theme */
+--icon-fill-dark: 
+--hover-dark: #7db39a;
+--card-container-dark: #1c2822;
+--div-dark: #313c37;
+--button-dark: #5f6863;
 
-/** Theme surface colors */
---clr-surface-a0: #ffffff;
---clr-surface-a10: #f0f0f0;
---clr-surface-a20: #e1e1e1;
---clr-surface-a30: #d3d3d3;
---clr-surface-a40: #c5c5c5;
---clr-surface-a50: #b6b6b6;
+--text: var(--text-light);
+--hover: var(--hover-light);
+--hover-text: var(--text-dark);
+--card-container: var(--card-container-light);
+--div: var(--div-light);
+--button: var(--button-light);
+}
 
-/** Theme tonal surface colors */
---clr-surface-tonal-a0: #d8e8e0;
---clr-surface-tonal-a10: #cedcd5;
---clr-surface-tonal-a20: #c4d0ca;
---clr-surface-tonal-a30: #bac4bf;
---clr-surface-tonal-a40: #b0b8b4;
---clr-surface-tonal-a50: #a6ada9;
+/** dark mode */ 
+[data-theme='dark'] {
+--text: var(--text-dark);
+--hover: var(--hover-dark);
+--hover-text: var(--text-light);
+--card-container: var(--card-container-dark);
+--div: var(--div-dark);
+--button: var(--button-dark);
+
 }
 
 @font-face {
     font-family: "Raleway";
     src: url(./fonts/Raleway-VariableFont_wght.woff2);
-    font-weight: 400;
 }
 
 @font-face {
     font-family: "Roboto";
     src: url(./fonts/Roboto-VariableFont_wdth\,wght.woff2);
-    font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
@@ -44,7 +50,6 @@
 @font-face {
     font-family: "Oswald";
     src: url(./fonts/Oswald-VariableFont_wght.woff2);
-    font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
@@ -52,7 +57,6 @@
 @font-face {
     font-family: "Montserrat";
     src: url(./fonts/Montserrat-VariableFont_wght.woff2);
-    font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
@@ -63,6 +67,8 @@
   margin: 0;
   padding: 0;
   font-family: "Raleway", sans-serif, system-ui;
+  font-weight: 100 900;
+  color: var(--text);
 }
 
 body {
@@ -74,39 +80,72 @@ body {
 }
 
 body,
-#card-container {
+#card-container,
+#header,
+.book-info {
     display: grid;
-    color: black;
 }
 
 #header {
     grid-area: header;
-    display: grid;
     grid-template-columns: 1fr 3fr 4fr 1fr;
-    align-items: center;
     justify-content: space-evenly;
-    background-color: var(--clr-surface-tonal-a10);
     gap: 15px;
 
 }
 
+#header,
+.book-card,
+.book-card-btn-div button {
+    background-color: var(--div);
+}
+
 .icon,
 .title,
-.call-to-action {
+.call-to-action,
+.text-inputs,
+.book-card,
+#book-descriptors,
+#book-specifics,
+.book-card-btn-div {
     display: flex;
+}
+
+.icon, 
+.call-to-action,
+#header,
+.book-card {
+    align-items: center;
+}
+
+.icon,
+.add-new-book {
+    justify-self: center;
 }
 
 .icon {
     padding: 20px 0;
 }
 
-.icon {
-    justify-self: center;
-    align-self: center;
+.icon svg {
+    display: block;
+    stroke: var(--text);
+    width: 60px;
+    height: 60px;
+    border: none;
 }
 
-.title {
-    flex-direction: column;    
+.icon svg path {
+    fill: var(--icon-fill);
+}
+
+.title,
+.text-inputs,
+.book-card,
+#book-descriptors,
+#book-specifics,
+.book-card-btn-div {
+    flex-direction: column;
 }
 
 .title p {
@@ -118,7 +157,6 @@ body,
     font-size: 2em;
     line-height: 1em;
     align-items: end;
-    
 }
 
 .title p:nth-child(2) {
@@ -128,7 +166,6 @@ body,
 
 .call-to-action {
     justify-self: end;
-    align-items: center;
     gap: 8px;
 }
 
@@ -137,7 +174,6 @@ body,
 }
 
 .add-new-book {
-    justify-self: center;
     padding: 20px 20px 20px 0
 }
 
@@ -155,8 +191,6 @@ dialog::backdrop {
 }
 
 .text-inputs {
-    display: flex;
-    flex-direction: column;
     gap: 10px;
 }
 
@@ -164,22 +198,12 @@ input[type="radio"] {
     /* appearance: none; */
 }
 
-.book-card {
-    background-color: var(--clr-surface-tonal-a10);
-    border: none;
-    border-radius: 20px;
-}
+
 
 #openModal {
-    text-align: center;
-    vertical-align: center;
-    font-size: 0.9em;
-    font-weight: bold;
     line-height: 3.5em;
     width: 150px;
-    background-color: var(--clr-surface-tonal-a20);
-    border: none;
-    border-radius: 200px;    
+    border: none; 
 }
 
 #openModal,
@@ -187,51 +211,63 @@ input[type="radio"] {
     text-align: center;
     vertical-align: center;
     font-size: 0.9em;
-    font-weight: bold;
     border-radius: 200px;  
+}
+
+#openModal,
+.book-card-btn-div button,
+.book-title,
+#book-descriptors {
+    font-weight: bold;
+}
+
+#openModal,
+.toggle-read-btn.is-read {
+    background-color: var(--button);
+}
+
+#openModal:hover,
+.book-card-btn-div button:hover {
+    background-color: var(--hover);
+    color: var(--hover-text);
 }
 
 
 #card-container {
     grid-area: card-container;
-    background-color: var(--clr-surface-tonal-a0);
+    background-color: var(--card-container);
     width: auto;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(200px, 400px));
     padding: 50px 20px;
     gap: 30px;
 }
 
 .book-card {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    align-items: center;
     justify-content: space-between;
-}
-
-.book-card {
+    border: none;
+    border-radius: 20px;
     padding: 15px;
+    
 }
 
 .book-title {
     font-size: h2;
-    font-weight: bold;
     padding-top: 2em;
 }
 
 .book-info {
-    display: grid;
-    grid-template-columns: max-content max-content;
+    grid-template-columns: max-content minmax(0, 1fr);
     gap: 2em;
     margin: 0 auto;
     min-width: 215px;
+    max-width: 100%;
+    text-overflow: none;
+    text-wrap: wrap;
 }
 
 #book-descriptors,
 #book-specifics {
-    display: flex;
-    flex-direction: column;
     font-size: 1em;
     gap: 1.5em;
     align-items: start;
@@ -239,31 +275,14 @@ input[type="radio"] {
 
 }
 
-#book-descriptors {
-    font-weight: bold;
-}
-
 .book-card-btn-div {
-    display: flex;
-    flex-direction: column;
     height: 100px;
     padding-bottom: 1em;
 }
 
 .book-card-btn-div button {
-    background-color: var(--clr-surface-tonal-a10);
-    border: 1px solid var(--clr-surface-tonal-a30);
+    border: 1px solid var(--button);
     line-height: 2.5em;
     width: 200px;
     margin-top: auto;
-}
-
-.toggle-read-btn.is-read {
-    background-color: var(--clr-primary-a30);
-    color: var(--clr-light-a0);
-}
-
-.book-removal-btn:hover {
-    background-color: var(--clr-primary-a30);
-    color: var(--clr-light-a0);
 }
