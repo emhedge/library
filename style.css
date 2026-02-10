@@ -1,38 +1,25 @@
 :root {
-/** Base colors */
---text-light: #000000;
---text-dark: #ffffff;
-
-/* default: light theme */
+/* light mode default */
+--text: #000000;
+--hover: #295c47;
+--hover-text: #ffffff;
+--card-container: #d8e8e0;
+--div: #cedcd5;
+--button: #bac4bf;
 --icon-fill: #378d6b;
---hover-light: #295c47;
---card-container-light: #d8e8e0;
---div-light: #cedcd5;
---button-light: #bac4bf;
-/* dark theme */
---icon-fill-dark: 
---hover-dark: #7db39a;
---card-container-dark: #1c2822;
---div-dark: #313c37;
---button-dark: #5f6863;
-
---text: var(--text-light);
---hover: var(--hover-light);
---hover-text: var(--text-dark);
---card-container: var(--card-container-light);
---div: var(--div-light);
---button: var(--button-light);
+--icon-stroke: #000000;
 }
 
 /** dark mode */ 
 [data-theme='dark'] {
---text: var(--text-dark);
---hover: var(--hover-dark);
---hover-text: var(--text-light);
---card-container: var(--card-container-dark);
---div: var(--div-dark);
---button: var(--button-dark);
-
+--text: #ffffff;
+--hover: #7db39a;
+--hover-text: #000000;
+--card-container: #1c2822;
+--div: #313c37;
+--button: #5f6863;
+--icon-fill: #d8e8e0;
+--icon-stroke: #5f6863;
 }
 
 @font-face {
@@ -88,7 +75,7 @@ body,
 
 #header {
     grid-area: header;
-    grid-template-columns: 1fr 3fr 4fr 1fr;
+    grid-template-columns: 1fr 1fr 3fr 4fr 1fr;
     justify-content: space-evenly;
     gap: 15px;
 
@@ -128,15 +115,20 @@ body,
 }
 
 .icon svg {
-    display: block;
-    stroke: var(--text);
     width: 60px;
     height: 60px;
+}
+
+.icon svg,
+.call-to-action svg {
+    display: block;
+    stroke: var(--text);
     border: none;
 }
 
 .icon svg path {
     fill: var(--icon-fill);
+    stroke: var(--icon-stroke)
 }
 
 .title,
@@ -164,13 +156,88 @@ body,
     padding-top: 5px;
 }
 
+.light-dark-toggle {
+    box-sizing: border-box;
+}
+
+li {
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+}
+
+label {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    position: relative;
+}
+
+label span {
+    position: absolute;
+    width: max-content;
+    font-weight: bold;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 44px;
+    height: 24px;
+    border-radius: 12px;
+    border: 2px solid black;
+    background: var(--icon-fill);
+    transition: all 0.4s;
+}
+
+input[type="checkbox"]::before {
+    width: 16px;
+    height: 16px;
+    border-radius: 9px;
+    background-color: black;
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 16%;
+    transition: all 0.4s;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--icon-fill);
+    transition: all 0.4s;
+}
+
+input[type="checkbox"]:checked::before {
+    left: 30%;
+    transition: all 0.4s;
+}
+
+input[type="checkbox"] ~ label .dark, input[type="checkbox"]:checked ~ label .light {
+    opacity: 0;
+}
+
+input[type="checkbox"] ~ label .light, input[type="checkbox"]:checked ~ label .dark {
+    opacity: 1;
+}
+
+input:focus {
+    outline: 1px dotted black;
+}
+
 .call-to-action {
     justify-self: end;
     gap: 8px;
 }
 
 .call-to-action svg {
-    background-color: black;
+    width: 26px;
+    height: 26px;
+}
+
+.call-to-action svg path {
+    stroke: var(--icon-fill);
 }
 
 .add-new-book {
@@ -185,7 +252,6 @@ dialog {
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-/* This styles the dimmed background */
 dialog::backdrop {
   background: rgba(0, 0, 0, 0.5);
 }
@@ -197,8 +263,6 @@ dialog::backdrop {
 input[type="radio"] {
     /* appearance: none; */
 }
-
-
 
 #openModal {
     line-height: 3.5em;

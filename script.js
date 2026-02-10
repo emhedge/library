@@ -3,6 +3,8 @@ const newBookBtn = document.querySelector("#add-new-btn")
 const dialog = document.querySelector('#bookDialog');
 const openBtn = document.querySelector('#openModal');
 const closeBtn = document.querySelector('#closeModal');
+document.documentElement.setAttribute("data-theme", "light")
+
 
 // new Book constructor
 function Book({title, author, pages, read}) {
@@ -58,9 +60,10 @@ closeBtn.addEventListener('click', () => {
 const notRead = "Not yet read";
 const read = "Read";
 
-cardContainer.addEventListener("click", e => {
-    e.preventDefault();
+document.addEventListener("click", e => {
+    
     if (e.target.classList.contains("toggle-read-btn")) {
+        e.preventDefault();
         const button = e.target;
         const thisCard = button.closest(".book-card")
         const currentStatus = thisCard.querySelector(".read-specifics");
@@ -80,12 +83,22 @@ cardContainer.addEventListener("click", e => {
     }
 
     if (e.target.classList.contains("book-removal-btn")) {
+        e.preventDefault();
         const button = e.target;
         const thisCard = button.closest(".book-card")
         const bookId = thisCard.dataset.id;
         const foundBook = myLibrary.find(book => book.id == bookId);
         myLibrary.splice(foundBook, 1);
         thisCard.remove();
+    }
+
+    if (e.target.classList.contains("light-dark-toggle")) {
+        const theme = document.documentElement.getAttribute("data-theme");
+        if (theme == "light") {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
     }
 })
 
