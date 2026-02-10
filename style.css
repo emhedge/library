@@ -280,7 +280,6 @@ input[type="radio"] {
 
 #openModal,
 .book-card-btn-div button,
-.book-title,
 #book-descriptors {
     font-weight: bold;
 }
@@ -316,8 +315,9 @@ input[type="radio"] {
 }
 
 .book-title {
-    font-size: h2;
-    padding-top: 2em;
+    font-size: 1.5em;
+    font-family: "Oswald", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding-top: 1em;
 }
 
 .book-info {
