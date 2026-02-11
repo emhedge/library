@@ -32,10 +32,20 @@
                 </li>
             </ul>
         </div>
-        <div class="call-to-action">Want to add more books to your library? <strong>Click here.</strong> 
-            <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 12H6.5M20 12L14 6M20 12L14 18M20 12H9.5" stroke="#378d6b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+        <div class="call-to-action">
+            <div class="cta-desktop">
+                <span>Want to add more books to your library? <strong>Click here.</strong></span>
+                <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 12H6.5M20 12L14 6M20 12L14 18M20 12H9.5" stroke="#378d6b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+            <div class="cta-mobile">
+                <span>Want to add more books to your library? <strong>Click here.</strong></span>
+                <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 18H15M6 18V9M6 18L12.5 11.5M18 6L15.5 8.5" stroke="#378d6b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            
         </div>
         <div class="add-new-book">
             <!-- <button type="button" id="new-book-btn">Add</button> -->
@@ -52,14 +62,16 @@
                         <input type="text" placeholder="Tatyana Tolstaya" id="author" name="author" required>
 
                         <label for="pages">Page count:</label>
-                        <input type="number" placeholder="320 pages" id="pages" name="pages" required>
+                        <input type="number" placeholder="320" id="pages" name="pages" min="1" max="10000" required>
                     </div>
-                    <div class="read-radio-container">
+                    <div class="read-container">
                         <h4>Read:</h4>
-                        <input type="radio" id="read" name="read" value="Read" checked>
-                        <label for="read">Finished</label>
-                        <input type="radio" id="not-read" name="read" value="Not yet read">
-                        <label for="not-read">Not yet read</label>
+                        <div class="read-radio-container">
+                            <input type="radio" id="read" name="read" value="Read" checked>
+                            <label for="read">Finished</label>
+                            <input type="radio" id="not-read" name="read" value="Not yet read">
+                            <label for="not-read">Not yet read</label>
+                        </div>
                     </div>
                     <div class="buttons-container">
                         <button type="submit">Add</button>

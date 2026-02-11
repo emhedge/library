@@ -77,10 +77,9 @@ body,
 
 #header {
     grid-area: header;
-    grid-template-columns: 1fr 1fr 1fr 4fr 1fr;
-    justify-content: space-evenly;
-    gap: 15px;
-
+    grid-template-columns: auto auto 1fr auto auto;
+    /* justify-content: space-evenly; */
+    gap: 20px;
 }
 
 #header,
@@ -93,7 +92,8 @@ dialog,
 
 .icon,
 .title,
-.call-to-action,
+.cta-desktop,
+.cta-mobile,
 .text-inputs,
 .book-card,
 #book-descriptors,
@@ -102,20 +102,18 @@ dialog,
     display: flex;
 }
 
-.icon, 
-.call-to-action,
+.cta-desktop,
+.cta-mobile,
 #header,
 .book-card {
     align-items: center;
 }
 
-.icon,
-.add-new-book {
-    justify-self: center;
-}
-
 .icon {
-    padding: 20px 0;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    padding: 20px 0 20px 20px;
 }
 
 .icon svg {
@@ -124,7 +122,8 @@ dialog,
 }
 
 .icon svg,
-.call-to-action svg {
+.cta-desktop svg,
+.cta-mobile svg {
     display: block;
     stroke: var(--text);
     border: none;
@@ -150,7 +149,6 @@ dialog h3 {
 }
 
 .title p:first-child {
-    font-weight: normal;
     font-size: 2em;
     line-height: 1em;
     align-items: end;
@@ -163,7 +161,13 @@ dialog h3 {
 
 .light-dark-toggle {
     display: flex;
-    /* box-sizing: border-box; */
+    /* width: 100%; */
+    width: auto;
+    white-space: nowrap;
+}
+
+ul {
+    width: 100%;
 }
 
 li {
@@ -230,19 +234,28 @@ input[type="checkbox"] ~ label .light, input[type="checkbox"]:checked ~ label .d
 
 input:focus {
     outline: 1px dotted black;
+    caret-color: black;
 }
 
-.call-to-action {
-    justify-self: end;
+.cta-mobile {
+    display: none;
+}
+
+.cta-desktop,
+.cta-mobile {
     gap: 8px;
+    width: auto;
+    white-space: nowrap;
 }
 
-.call-to-action svg {
+.cta-desktop svg,
+.cta-mobile svg {
     width: 26px;
     height: 26px;
 }
 
-.call-to-action svg path {
+.cta-desktop svg path,
+.cta-mobile svg path {
     stroke: var(--icon-fill);
 }
 
@@ -266,7 +279,11 @@ input:focus {
 
 #openModal,
 .book-card-btn-div button,
-#book-descriptors {
+#book-descriptors,
+label[for="title"],
+label[for="author"],
+label[for="pages"],
+.buttons-container button {
     font-weight: bold;
 }
 
@@ -283,91 +300,6 @@ input:focus {
     color: var(--hover-text);
 }
 
-dialog {
-    &[open] {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-  }    
-    block-size: 32dvb;
-    inset-block-start: 5dvb;
-    border: none;
-    border-radius: 8px;
-    margin: auto;
-    inline-size: min(30ch, 40dvi);
-    margin-inline: auto;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-form {
-    width: 85%;
-}
-
-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-dialog h3 {
-    font-size: 1.6em;
-    text-align: center;
-}
-
-dialog label {
-    width: 100%;
-}
-
-label[for="title"],
-label[for="author"],
-label[for="pages"] {
-    font-weight: bold;
-}
-
-.text-inputs {
-    margin: 1em 0;
-}
-
-.text-inputs {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    gap: 0.7em;
-}
-input[type="text"],
-input[type="number"],
-.buttons-container button {
-    border: 1px solid var(--button);
-    border-radius: 10px;
-}
-
-input[type="text"],
-input[type="number"] {
-    border: 1px solid var(--button);
-    border-radius: 10px;
-    line-height: 1.7em;
-    text-indent: 8px;
-
-    /* firefox, remove number input spinner */
-    -moz-appearance: textfield;
-}
-
-/* remove number input spinner for chrome et al. */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.read-radio-container h4 {
-    margin-bottom: 0.7em;
-}
-
-input[type="radio"] {
-    gap: 0.7em;
-}
-
 .buttons-container {
     display: flex;
     justify-content: space-evenly;
@@ -377,7 +309,6 @@ input[type="radio"] {
 }
 
 .buttons-container button {
-    font-weight: bold;
     width: 50%;
     padding: 0 5px;
     line-height: 2em;
@@ -437,4 +368,192 @@ input[type="radio"] {
     line-height: 2.5em;
     width: 200px;
     margin-top: auto;
+}
+
+
+dialog {
+    &[open] {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }    
+    block-size: 32dvb;
+    inset-block-start: 5dvb;
+    border: none;
+    border-radius: 8px;
+    margin: auto;
+    inline-size: min(30ch, 40dvi);
+    margin-inline: auto;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+form {
+    width: 85%;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+dialog h3 {
+    font-size: 1.6em;
+    text-align: center;
+}
+
+dialog label {
+    width: 100%;
+}
+
+.text-inputs {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin: 1em 0;
+    gap: 0.7em;
+}
+input[type="text"],
+input[type="number"],
+.buttons-container button {
+    border: 1px solid var(--button);
+    border-radius: 10px;
+}
+
+input[type="text"],
+input[type="number"] {
+    line-height: 1.7em;
+    text-indent: 8px;
+
+    /* firefox, remove number input spinner */
+    -moz-appearance: textfield;
+}
+
+/* remove number input spinner for chrome et al. */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.read-container h4 {
+    margin-bottom: 0.7em;
+}
+
+.read-radio-container {
+    display: flex;
+    gap: 0.8em;
+}
+
+.read-radio-container label {
+    width: auto;
+    white-space: nowrap;
+}
+
+@media (max-width: 1000px) {
+    #header {
+        /* Change from 5 columns to 1 single column */
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+        "icon title"
+        "cta-mobile cta-mobile"
+        "light-dark-toggle add-new-book";
+        
+        /* This changes the height to accommodate the stack */
+        height: auto; 
+        
+        /* Space things out vertically */
+        gap: 15px;
+        padding: 20px;
+        /* justify-items: center; 
+        text-align: center; */
+    }
+
+    .icon {
+        padding: 0 30px 0 0;
+        grid-area: icon;
+        justify-self: end;
+    }
+    
+    .title {
+        grid-area: title;
+    }
+    
+    .add-new-book {
+        display: flex;
+        justify-self: start;
+        justify-content: start;
+        grid-area: add-new-book;
+        padding: 0;
+        margin: 0;
+    }
+
+    .title,
+    .add-new-book {
+        padding-left: 15px;
+    }
+    
+    .light-dark-toggle {
+        grid-area: light-dark-toggle;
+        display: flex;
+        justify-content: end;
+        width: 100%;
+    }
+
+    .call-to-action {
+        grid-area: cta-mobile;
+        display: flex;
+        justify-self: center;
+        justify-content: center;
+        
+    }
+
+    ul {
+        padding: 0;
+        list-style: none;
+    }
+
+    li {
+        width: auto;
+        display: flex;
+        justify-content: end; 
+        align-items: center;     
+        gap: 12px;               
+    }
+
+    li label {
+        width: auto;
+        position: relative;
+        display: block;
+        min-width: 90px;
+    }
+
+    li label span {
+        width: max-content;
+    }
+
+    input[type="checkbox"] {
+        flex-shrink: 0;
+        position: relative;
+    }
+
+    input[type="checkbox"]::before {
+        left: 4px;
+        transform: translateY(-2px);
+    }
+
+    input[type="checkbox"]:checked::before {
+        left: 20px;
+        transform: translateY(-2px);
+    }
+
+    .cta-desktop {
+        display: none;
+    }
+
+    .cta-mobile {
+        display: flex;
+        font-size: clamp(0.8em, 2vw, 1em);
+    }
 }

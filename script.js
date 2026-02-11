@@ -29,9 +29,9 @@ myLibrary = [];
 
 // start with three books
 const initialBooks = [
-    new Book({title: "Slaughterhouse Five", author: "Kurt Vonnegut, Jr.", pages: "190 pages", read:"Read"}),
-    new Book({title: "Leviathan Wakes", author: "James S.A. Corey", pages: "561 pages", read:"Read"}),
-    new Book({title: "Project Hail Mary", author: "Andy Weir", pages: "496 pages", read:"Not yet read"}),
+    new Book({title: "Slaughterhouse Five", author: "Kurt Vonnegut, Jr.", pages: "190", read:"Read"}),
+    new Book({title: "Leviathan Wakes", author: "James S.A. Corey", pages: "561", read:"Read"}),
+    new Book({title: "Project Hail Mary", author: "Andy Weir", pages: "496", read:"Not yet read"}),
 ];
 
 initialBooks.forEach(book => {
