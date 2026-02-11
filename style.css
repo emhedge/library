@@ -8,6 +8,7 @@
 --button: #bac4bf;
 --icon-fill: #378d6b;
 --icon-stroke: #000000;
+--surface: #ffffff;
 }
 
 /** dark mode */ 
@@ -20,6 +21,7 @@
 --button: #5f6863;
 --icon-fill: #d8e8e0;
 --icon-stroke: #5f6863;
+--surface: #121212;
 }
 
 @font-face {
@@ -75,13 +77,15 @@ body,
 
 #header {
     grid-area: header;
-    grid-template-columns: 1fr 1fr 3fr 4fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 4fr 1fr;
     justify-content: space-evenly;
     gap: 15px;
 
 }
 
 #header,
+dialog,
+.buttons-container button[type=button],
 .book-card,
 .book-card-btn-div button {
     background-color: var(--div);
@@ -140,7 +144,8 @@ body,
     flex-direction: column;
 }
 
-.title p {
+.title p,
+dialog h3 {
     font-family: "Oswald", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
@@ -157,7 +162,8 @@ body,
 }
 
 .light-dark-toggle {
-    box-sizing: border-box;
+    display: flex;
+    /* box-sizing: border-box; */
 }
 
 li {
@@ -244,26 +250,6 @@ input:focus {
     padding: 20px 20px 20px 0
 }
 
-dialog {
-  border: none;
-  border-radius: 8px;
-  margin: auto;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-dialog::backdrop {
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.text-inputs {
-    gap: 10px;
-}
-
-input[type="radio"] {
-    /* appearance: none; */
-}
-
 #openModal {
     line-height: 3.5em;
     width: 150px;
@@ -285,16 +271,118 @@ input[type="radio"] {
 }
 
 #openModal,
-.toggle-read-btn.is-read {
+.toggle-read-btn.is-read,
+.buttons-container button[type=submit] {
     background-color: var(--button);
 }
 
 #openModal:hover,
-.book-card-btn-div button:hover {
+.book-card-btn-div button:hover,
+.buttons-container button:hover {
     background-color: var(--hover);
     color: var(--hover-text);
 }
 
+dialog {
+    &[open] {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }    
+    block-size: 32dvb;
+    inset-block-start: 5dvb;
+    border: none;
+    border-radius: 8px;
+    margin: auto;
+    inline-size: min(30ch, 40dvi);
+    margin-inline: auto;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+form {
+    width: 85%;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+dialog h3 {
+    font-size: 1.6em;
+    text-align: center;
+}
+
+dialog label {
+    width: 100%;
+}
+
+label[for="title"],
+label[for="author"],
+label[for="pages"] {
+    font-weight: bold;
+}
+
+.text-inputs {
+    margin: 1em 0;
+}
+
+.text-inputs {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.7em;
+}
+input[type="text"],
+input[type="number"],
+.buttons-container button {
+    border: 1px solid var(--button);
+    border-radius: 10px;
+}
+
+input[type="text"],
+input[type="number"] {
+    border: 1px solid var(--button);
+    border-radius: 10px;
+    line-height: 1.7em;
+    text-indent: 8px;
+
+    /* firefox, remove number input spinner */
+    -moz-appearance: textfield;
+}
+
+/* remove number input spinner for chrome et al. */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.read-radio-container h4 {
+    margin-bottom: 0.7em;
+}
+
+input[type="radio"] {
+    gap: 0.7em;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    gap: 1em;
+    margin-top: 1.5em;
+}
+
+.buttons-container button {
+    font-weight: bold;
+    width: 50%;
+    padding: 0 5px;
+    line-height: 2em;
+    font-size: 1em;
+}
 
 #card-container {
     grid-area: card-container;
