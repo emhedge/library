@@ -1,6 +1,6 @@
 :root {
 /* light mode default */
---text: #000000;
+--text: #121212;
 --hover: #295c47;
 --hover-text: #ffffff;
 --card-container: #d8e8e0;
@@ -8,7 +8,6 @@
 --button: #bac4bf;
 --icon-fill: #378d6b;
 --icon-stroke: #000000;
---surface: #ffffff;
 }
 
 /** dark mode */ 
@@ -21,7 +20,6 @@
 --button: #5f6863;
 --icon-fill: #d8e8e0;
 --icon-stroke: #5f6863;
---surface: #121212;
 }
 
 @font-face {
@@ -61,7 +59,7 @@
 }
 
 body {
-    grid-template-rows: 1fr 15fr;
+    grid-template-rows: auto 1fr;
     grid-template-areas: 
     "header"
     "card-container";
@@ -75,11 +73,40 @@ body,
     display: grid;
 }
 
+body::-webkit-scrollbar {
+    width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--button);
+    /* border: 3px solid var(--hover); */
+    
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: var(--card-container);
+    border-radius: 20px;
+    border: 3px solid var(--div);
+}
+
 #header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     grid-area: header;
     grid-template-columns: auto auto 1fr auto auto;
     /* justify-content: space-evenly; */
     gap: 20px;
+}
+
+#header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to bottom, var(--div), var(--button));
 }
 
 #header,
@@ -197,7 +224,7 @@ input[type="checkbox"] {
     width: 44px;
     height: 24px;
     border-radius: 12px;
-    border: 2px solid black;
+    border: 2px solid var(--text);
     background: var(--icon-fill);
     transition: all 0.4s;
 }
@@ -206,7 +233,7 @@ input[type="checkbox"]::before {
     width: 16px;
     height: 16px;
     border-radius: 9px;
-    background-color: black;
+    background-color: var(--text);
     content: '';
     position: absolute;
     top: 4px;
@@ -233,8 +260,8 @@ input[type="checkbox"] ~ label .light, input[type="checkbox"]:checked ~ label .d
 }
 
 input:focus {
-    outline: 1px dotted black;
-    caret-color: black;
+    outline: 1px dotted var(--text);
+    caret-color: var(--text);
 }
 
 .cta-mobile {
@@ -259,6 +286,11 @@ input:focus {
     stroke: var(--icon-fill);
 }
 
+button:hover {
+    transform: scale(1.05) translateY(-1px);
+    transition: transform 0.15s ease-out;
+}
+
 .add-new-book {
     padding: 20px 20px 20px 0
 }
@@ -274,7 +306,13 @@ input:focus {
     text-align: center;
     vertical-align: center;
     font-size: 0.9em;
-    border-radius: 200px;  
+}
+#openModal,
+.book-card-btn-div button,
+.buttons-container button {
+    border: 1px solid var(--button);
+    box-shadow: 0px 1px var(--text);
+    border-radius: 200px;
 }
 
 #openModal,
@@ -323,6 +361,7 @@ label[for="pages"],
     grid-template-rows: repeat(auto-fit, minmax(200px, 400px));
     padding: 50px 20px;
     gap: 30px;
+    position: relative;
 }
 
 .book-card {
@@ -330,7 +369,16 @@ label[for="pages"],
     border: none;
     border-radius: 20px;
     padding: 15px;
-    
+
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    transition: transform 0.15s ease-out;
+    box-shadow: 
+        inset 0 0 20px 5px var(--button),
+        0 0 0 2px var(--button),
+        0 0 15px 2px var(--button);
 }
 
 .book-title {
@@ -364,7 +412,6 @@ label[for="pages"],
 }
 
 .book-card-btn-div button {
-    border: 1px solid var(--button);
     line-height: 2.5em;
     width: 200px;
     margin-top: auto;
@@ -378,8 +425,8 @@ dialog {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-  }    
-    block-size: 32dvb;
+  }
+    block-size: 35dvb;
     inset-block-start: 5dvb;
     border: none;
     border-radius: 8px;
@@ -412,7 +459,7 @@ dialog label {
     flex: 1;
     flex-direction: column;
     margin: 1em 0;
-    gap: 0.7em;
+    gap: 0.8em;
 }
 input[type="text"],
 input[type="number"],
@@ -438,7 +485,7 @@ input::-webkit-inner-spin-button {
 }
 
 .read-container h4 {
-    margin-bottom: 0.7em;
+    margin-bottom: 0.9em;
 }
 
 .read-radio-container {
@@ -450,6 +497,37 @@ input::-webkit-inner-spin-button {
     width: auto;
     white-space: nowrap;
 }
+
+input[type=radio] {
+    display: inline-grid;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    place-content: center;
+    cursor: pointer;
+    border: 2px solid var(--button);
+    background-color: transparent;
+    border-radius: 50%;
+    transition: border-color 0.3 ease;
+}
+
+input[type="radio"]::before {
+    display: block;
+    content: " ";
+    width: 10px;
+    height: 10px;
+    font-size: 1.2em;
+    border-radius: 50%;
+    background-color: var(--button);
+    transform: scale(0);
+    transform-origin: center;
+    transition: all 0.3s ease-in;
+}
+input[type="radio"]:checked::before {
+    transform: scale(1);
+    transition: all 0.3s cubic-bezier(0.25, 0.25, 0.56, 2);
+}
+
 
 @media (max-width: 1000px) {
     #header {

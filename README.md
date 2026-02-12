@@ -1,6 +1,4 @@
 # library
-Created a simple library using Javascript, CSS, and HTML based on TOP curriculum.
+I created a simple library using Javascript, CSS, and HTML based on TOP curriculum.
 
-
-The color palette is based on photo by <a href="https://unsplash.com/@danbegel?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Dan Begel</a> on <a href="https://unsplash.com/photos/modern-desert-chapel-with-a-distinctive-cross-design-yuI_CpM0mcQ?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-      
+This library project utilized a lot of new js object concepts, including object prototypes, as well as flexbox, grid, and more advanced CSS properties related to the checkbox toggle switch for light/dark mode, dialog creation and form styling (in general, but specifically radio button styling), responsive borders on grid items/flex containers (using :hover and ::after at times), and some simple mobile styling (media query for smaller windows). Since we have not covered mobile design yet in TOP curriculum, this project uses desktop-first design and updates for smaller screens, which is not 'best practice' today, but I plan to return and revise this in the future.
