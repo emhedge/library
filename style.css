@@ -223,7 +223,7 @@ input[type="checkbox"] {
     width: 44px;
     height: 24px;
     border-radius: 12px;
-    border: 2px solid var(--text);
+    border: 2px solid #121212;
     background: var(--icon-fill);
     transition: all 0.4s;
 }
@@ -232,7 +232,7 @@ input[type="checkbox"]::before {
     width: 16px;
     height: 16px;
     border-radius: 9px;
-    background-color: var(--text);
+    background-color: #121212;
     content: '';
     position: absolute;
     top: 4px;
