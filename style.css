@@ -79,8 +79,6 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-track {
     background: var(--button);
-    /* border: 3px solid var(--hover); */
-    
 }
 
 body::-webkit-scrollbar-thumb {
@@ -95,8 +93,7 @@ body::-webkit-scrollbar-thumb {
     z-index: 100;
     grid-area: header;
     grid-template-columns: auto auto 1fr auto auto;
-    /* justify-content: space-evenly; */
-    gap: 20px;
+    gap: 1.2em;
 }
 
 #header::after {
@@ -119,13 +116,18 @@ dialog,
 
 .icon,
 .title,
+.light-dark-toggle,
+li,
 .cta-desktop,
 .cta-mobile,
 .text-inputs,
 .book-card,
 #book-descriptors,
 #book-specifics,
-.book-card-btn-div {
+.book-card-btn-div,
+form,
+.read-radio-container,
+.buttons-container {
     display: flex;
 }
 
@@ -137,10 +139,9 @@ dialog,
 }
 
 .icon {
-    display: flex;
     align-items: start;
     justify-content: start;
-    padding: 20px 0 20px 20px;
+    padding: 1.2em 0 1.2em 1.2em;
 }
 
 .icon svg {
@@ -166,7 +167,8 @@ dialog,
 .book-card,
 #book-descriptors,
 #book-specifics,
-.book-card-btn-div {
+.book-card-btn-div,
+form {
     flex-direction: column;
 }
 
@@ -187,8 +189,6 @@ dialog h3 {
 }
 
 .light-dark-toggle {
-    display: flex;
-    /* width: 100%; */
     width: auto;
     white-space: nowrap;
 }
@@ -199,7 +199,6 @@ ul {
 
 li {
     width: 100px;
-    display: flex;
     align-items: center;
     justify-content: space-around;
     position: relative;
@@ -292,7 +291,7 @@ button:hover {
 }
 
 .add-new-book {
-    padding: 20px 20px 20px 0
+    padding: 1.2em 1.2em 1.2em 0
 }
 
 #openModal {
@@ -339,11 +338,9 @@ label[for="pages"],
 }
 
 .buttons-container {
-    display: flex;
     justify-content: space-evenly;
     width: 100%;
     gap: 1em;
-    margin-top: 1.5em;
 }
 
 .buttons-container button {
@@ -359,8 +356,8 @@ label[for="pages"],
     width: auto;
     grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(200px, 400px));
-    padding: 50px 20px;
-    gap: 30px;
+    padding: 1.2em 1.2em;
+    gap: 2em;
     position: relative;
 }
 
@@ -421,12 +418,11 @@ label[for="pages"],
 dialog {
     &[open] {
     display: flex;
-    flex: 1;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
   }
-    block-size: 35dvb;
+    max-height: 90vh;
+    overflow-y: auto;
     inset-block-start: 5dvb;
     border: none;
     border-radius: 8px;
@@ -438,7 +434,10 @@ dialog {
 }
 
 form {
-    width: 85%;
+    justify-content: flex-start;
+    width: 90%;
+    height: auto;
+    gap: 2.3em;
 }
 
 dialog::backdrop {
@@ -454,13 +453,12 @@ dialog label {
     width: 100%;
 }
 
-.text-inputs {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    margin: 1em 0;
-    gap: 0.8em;
+.text-inputs,
+.buttons-container {
+    flex: 0 1 auto;
+    gap: 1em;
 }
+
 input[type="text"],
 input[type="number"],
 .buttons-container button {
@@ -485,12 +483,12 @@ input::-webkit-inner-spin-button {
 }
 
 .read-container h4 {
-    margin-bottom: 0.9em;
+    margin-bottom: 1em;
 }
 
 .read-radio-container {
-    display: flex;
-    gap: 0.8em;
+    justify-content: left;
+    gap: 1em;
 }
 
 .read-radio-container label {
@@ -528,38 +526,47 @@ input[type="radio"]:checked::before {
     transition: all 0.3s cubic-bezier(0.25, 0.25, 0.56, 2);
 }
 
-
 @media (max-width: 1000px) {
     #header {
-        /* Change from 5 columns to 1 single column */
+        /* change from 5 columns to 1 single column */
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
         "icon title"
         "cta-mobile cta-mobile"
         "light-dark-toggle add-new-book";
         
-        /* This changes the height to accommodate the stack */
+        /* makes height accommodate the stack */
         height: auto; 
         
-        /* Space things out vertically */
+        /* vertical spacing */
         gap: 15px;
         padding: 20px;
-        /* justify-items: center; 
-        text-align: center; */
     }
 
     .icon {
-        padding: 0 30px 0 0;
+        padding: 0 15px 0 0;
         grid-area: icon;
         justify-self: end;
+    }
+
+    .icon svg {
+        width: 90px;
+        height: 90px;
     }
     
     .title {
         grid-area: title;
     }
     
-    .add-new-book {
+    .add-new-book,
+    .light-dark-toggle,
+    .call-to-action,
+    li,
+    .cta-mobile {
         display: flex;
+    }
+
+    .add-new-book {
         justify-self: start;
         justify-content: start;
         grid-area: add-new-book;
@@ -569,19 +576,17 @@ input[type="radio"]:checked::before {
 
     .title,
     .add-new-book {
-        padding-left: 15px;
+        /* padding-left: 15px; */
     }
     
     .light-dark-toggle {
         grid-area: light-dark-toggle;
-        display: flex;
         justify-content: end;
         width: 100%;
     }
 
     .call-to-action {
         grid-area: cta-mobile;
-        display: flex;
         justify-self: center;
         justify-content: center;
         
@@ -589,12 +594,12 @@ input[type="radio"]:checked::before {
 
     ul {
         padding: 0;
+        /* padding-right: 15px; */
         list-style: none;
     }
 
     li {
         width: auto;
-        display: flex;
         justify-content: end; 
         align-items: center;     
         gap: 12px;               
@@ -631,7 +636,6 @@ input[type="radio"]:checked::before {
     }
 
     .cta-mobile {
-        display: flex;
         font-size: clamp(0.8em, 2vw, 1em);
     }
 }
